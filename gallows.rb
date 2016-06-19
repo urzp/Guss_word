@@ -15,6 +15,7 @@ end
 
 class Game
   require "yaml"
+  attr_reader :board
 
   def initialize ()
     @board={}
@@ -27,10 +28,13 @@ class Game
   def draw_board()
     
     #puts @board[:word]
+	puts
+	puts
     puts "Play step: #{ @board[:step_paly] }"
     word = hiden_word(@board[:word], @board[:opened_symbols])
-	puts "Word: #{word}"	
-	puts "Misatakes (#{@board[:mistakes].size}): #{ (@board[:mistakes]).join(", ") } "
+	puts "Word: #{word}"
+	puts "Missatakes (#{@board[:mistakes].size}): #{ (@board[:mistakes]).join(", ") } "
+	puts "Puts \"1\" if you want to save the game"	
   end
   
   def play
@@ -60,7 +64,7 @@ class Game
   end
   
   def save()
-    puts yaml = YAML::dump(self)
+    yaml = YAML::dump(self)
 	File.open("saved.yaml", "w") do |game_file|
 	  #game_file.puts yaml
 	  game_file.write(yaml)
@@ -70,8 +74,8 @@ class Game
   def load	
 	yaml = File.read("saved.yaml")
 	YAML::load(yaml)
-	
   end
+  
   
 private
   def take_rnd_word(words)
@@ -113,5 +117,8 @@ until game.lose?
   end
 end
 
-puts "_________You lose_____________________" if game.lose?
+ if game.lose?
+   puts "_________You lose_____________________"
+   puts "The words was \"#{game.board[:word]}\""
+ end
 
