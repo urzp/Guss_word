@@ -13,7 +13,7 @@ def load_words(file_name="5desk.txt")
 end
 
 class Game
-  attr_read = :board[:mistakes]
+
 
   def initialize ()
     @board={}
@@ -50,6 +50,10 @@ class Game
     return true if @board[:word].split(//).all?{ |i| @board[:opened_symbols].include?(i) }
   end
   
+  def lose?
+	@board[:mistakes].size >= 12
+  end
+  
   def save
   end
   
@@ -77,12 +81,15 @@ end
 
 load_words()
 game = Game.new
-while 
+until game.lose?
   game.draw_board
   game.play
   if game.win?
     game.draw_board
-    puts "You win" 
+    puts "*************** You win!!!! **********************" 
 	break
   end
 end
+
+puts "_________You lose_____________________" if game.lose?
+
