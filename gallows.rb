@@ -1,10 +1,22 @@
 
 # Gallows
 
-arr_words = File.readlines("5desk.txt")
+def load_words(file_name="5desk.txt")
+  if !File.exist?(file_name)
+    puts "Library of words, the file #{file_name} is not found!" 
+	return false
+  end
+  
+  puts "File of library #{file_name} loaded successful"
+  library = File.readlines(file_name)
+  words = library.select{|i| i.length.between?(5,12)}
+end
 
 class Game
+  @board
+
   def initialize ()
+    
   end
   
   def draw_board()
@@ -22,3 +34,6 @@ class Game
   def load
   end
 end
+
+
+load_words("1")
