@@ -13,14 +13,17 @@ def load_words(file_name="5desk.txt")
 end
 
 class Game
-  @board
+  @board={}
 
   def initialize ()
-    @word = take_rnd_word($words)
-	puts @word
+    @board[:word] = take_rnd_word($words)
+	@board[:turn] = 0
+	@board[:mistakes]=[]
+	@board[:opened_symbols]=[]
   end
   
   def draw_board()
+    
   end
   
   def play
