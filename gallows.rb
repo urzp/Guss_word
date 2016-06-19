@@ -26,7 +26,7 @@ class Game
   def draw_board()
       word = hiden_word(@board[:word], @board[:opened_symbols])
 	puts "Word: #{word}"	
-	puts "Misatakes: #{ (@board[:mistakes]).join(",") } "
+	puts "Misatakes (#{@board[:mistakes].size}): #{ (@board[:mistakes]).join(",") } "
   end
   
   def play
