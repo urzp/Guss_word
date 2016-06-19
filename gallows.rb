@@ -1,6 +1,7 @@
 
 # Gallows
 
+
 def load_words(file_name="5desk.txt")
   if !File.exist?(file_name)
     puts "Library of words, the file #{file_name} is not found!" 
@@ -13,12 +14,11 @@ def load_words(file_name="5desk.txt")
 end
 
 class Game
-
+  require "yaml"
 
   def initialize ()
     @board={}
     @board[:word] = take_rnd_word($words).chomp
-	@board[:turn] = 0
 	@board[:step_paly]=1
 	@board[:mistakes]=[]
 	@board[:opened_symbols]=[]
@@ -26,7 +26,7 @@ class Game
   
   def draw_board()
     
-    puts @board
+    puts @board[:word]
     puts "Play step: #{ @board[:step_paly] }"
     word = hiden_word(@board[:word], @board[:opened_symbols])
 	puts "Word: #{word}"	
@@ -39,7 +39,12 @@ class Game
 	while !selection.between?("a", "z") 
 	  selection = gets.chomp.to_s.downcase
 	  if !selection.between?("a", "z") 
-	    puts "Wrong symbol, please puts letter (a..z)" 
+	    if selection == "1"
+		  puts "Saved"
+		  save()
+		else
+	      puts "Wrong symbol, please puts letter (a..z)" 
+		end
 	  end
 	end
 	check_symbol(selection)
@@ -54,10 +59,20 @@ class Game
 	@board[:mistakes].size >= 12
   end
   
-  def save
+  def save()
+    puts yaml = YAML::dump(self)
+	File.open("saved.yaml", "w") do |game_file|
+	  #game_file.puts yaml
+	  game_file.write(yaml)
+	end
   end
   
   def load
+    game_file = GameFile.new("saved.yaml")
+	File.open("saved.yaml", "r") do |game_file|
+	  yaml = game_file.read
+	  YAML::load(yaml)
+	end
   end
   
 private
@@ -77,6 +92,7 @@ private
     @board[:word].include?(selection) ? @board[:opened_symbols] << selection : @board[:mistakes] << selection 
   end
 end
+
 
 
 load_words()
