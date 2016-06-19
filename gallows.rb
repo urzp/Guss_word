@@ -17,7 +17,7 @@ class Game
 
   def initialize ()
     @word = take_rnd_word($words)
-	
+	puts @word
   end
   
   def draw_board()
@@ -37,10 +37,11 @@ class Game
   
 private
   def take_rnd_word(words)
-    words[(rand * words.lenght).to_i]
+    words[(rand * words.size).to_i].downcase
   end
   
 end
 
 
 load_words()
+game = Game.new
