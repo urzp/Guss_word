@@ -9,14 +9,15 @@ def load_words(file_name="5desk.txt")
   
   puts "File of library #{file_name} loaded successful"
   library = File.readlines(file_name)
-  words = library.select{|i| i.length.between?(5,12)}
+  $words = library.select{|i| i.length.between?(5,12)}
 end
 
 class Game
   @board
 
   def initialize ()
-    
+    @word = take_rnd_word($words)
+	
   end
   
   def draw_board()
@@ -33,7 +34,13 @@ class Game
   
   def load
   end
+  
+private
+  def take_rnd_word(words)
+    words[(rand * words.lenght).to_i]
+  end
+  
 end
 
 
-load_words("1")
+load_words()
