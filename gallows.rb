@@ -67,12 +67,10 @@ class Game
 	end
   end
   
-  def load
-    game_file = GameFile.new("saved.yaml")
-	File.open("saved.yaml", "r") do |game_file|
-	  yaml = game_file.read
-	  YAML::load(yaml)
-	end
+  def load	
+	yaml = File.read("saved.yaml")
+	YAML::load(yaml)
+	
   end
   
 private
@@ -96,7 +94,15 @@ end
 
 
 load_words()
-game = Game.new
+
+
+puts "Do you want to load last saved game (y/n)"
+if gets.to_s.chomp == "y"
+  game = Game.new.load
+else
+  game = Game.new
+end
+
 until game.lose?
   game.draw_board
   game.play
