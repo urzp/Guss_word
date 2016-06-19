@@ -13,17 +13,23 @@ def load_words(file_name="5desk.txt")
 end
 
 class Game
-  @board={}
+  
 
   def initialize ()
+    @board={}
     @board[:word] = take_rnd_word($words)
 	@board[:turn] = 0
-	@board[:mistakes]=[]
-	@board[:opened_symbols]=[]
+	@board[:mistakes]=["c","g"]
+	@board[:opened_symbols]=["a","b","s","d","f","g","h","t"]
   end
   
   def draw_board()
-    
+      word = hiden_word(@board[:word], @board[:opened_symbols])
+	puts "Word: #{word}"
+	
+	puts "Misatakes: #{ (@board[:mistakes]).join(",") } "
+	
+	
   end
   
   def play
@@ -43,8 +49,16 @@ private
     words[(rand * words.size).to_i].downcase
   end
   
+  def hiden_word(word, opened_symbols)
+    h_word=""
+	0.upto(word.length) do |i|
+	  opened_symbols.any? { |op_sy| op_sy == word[i] }? h_word += " " + word[i] : h_word += " _"
+	end
+	return h_word
+  end
 end
 
 
 load_words()
 game = Game.new
+game.draw_board
