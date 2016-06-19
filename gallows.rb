@@ -26,7 +26,7 @@ class Game
   
   def draw_board()
     
-    puts @board[:word]
+    #puts @board[:word]
     puts "Play step: #{ @board[:step_paly] }"
     word = hiden_word(@board[:word], @board[:opened_symbols])
 	puts "Word: #{word}"	
