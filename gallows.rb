@@ -19,17 +19,14 @@ class Game
     @board={}
     @board[:word] = take_rnd_word($words)
 	@board[:turn] = 0
-	@board[:mistakes]=["c","g"]
-	@board[:opened_symbols]=["a","b","s","d","f","g","h","t"]
+	@board[:mistakes]=[]
+	@board[:opened_symbols]=[]
   end
   
   def draw_board()
       word = hiden_word(@board[:word], @board[:opened_symbols])
-	puts "Word: #{word}"
-	
+	puts "Word: #{word}"	
 	puts "Misatakes: #{ (@board[:mistakes]).join(",") } "
-	
-	
   end
   
   def play
